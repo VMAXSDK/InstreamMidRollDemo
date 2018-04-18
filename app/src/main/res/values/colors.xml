@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="vmax_background_light_blue">#EDF5FE</color>
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white">#fafafa</color>
+    <color name="initial_text_back">#f3f7f8</color>
+    <color name="initial_text_back2">#eaeff2</color>
+    <color name="initial_font_gotham">#154685</color>
+    <color name="initial_background">#e6eaf0</color>
+    <color name="initial_divider">#dbe3e9</color>
+    <color name="blog_descp">#8C92A5</color>
+</resources>
