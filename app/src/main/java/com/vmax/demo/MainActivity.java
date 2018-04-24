@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -33,16 +34,14 @@ import java.util.TimerTask;
  and Manage Changes in AndroidManifest as Well as Proguard,
  However You Can Manually Do This By Referring To Our Documentation Or following this Demo Project  */
 
-
 public class MainActivity extends Activity {
-
 
     VmaxAdView vmaxAdView;
     PlayerView simpleExoPlayerView;
     SimpleExoPlayer player;
     FrameLayout adContainer;
     Boolean resumeVideo=false;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +50,6 @@ public class MainActivity extends Activity {
         IntiUi();
         /** Cache Instream Video Ad*/
         cacheInstreamVideo();
-
     }
     public void IntiUi()
     {
@@ -64,30 +62,24 @@ public class MainActivity extends Activity {
     public void cacheInstreamVideo()
     {
         vmaxAdView = new VmaxAdView(this,"V933206e4",VmaxAdView.UX_INSTREAM_VIDEO);
-
         vmaxAdView.setAdListener(new VmaxAdListener() {
-
             @Override public void onAdReady(VmaxAdView adView) {
                 /** When Ad is cached play content video*/
                 playContentVideo();
             }
-
             @Override public void onAdError(VmaxAdError error) {
                 Toast.makeText(getApplicationContext(),
                         "Failed To Load Ad Please Try Again Later",Toast.LENGTH_LONG).show();
                 playContentVideo();
 
             }
-
             @Override
             public void onAdClose() {
                 resumeVideo=true;
                 playContentVideo();
             }
-
             @Override
             public void onAdMediaEnd(boolean isVideoCompleted, long l) {
-
             }
 
         });
@@ -95,9 +87,8 @@ public class MainActivity extends Activity {
         vmaxAdView.cacheAd();
     }
 
-public void playContentVideo()
-    {
-
+    public void playContentVideo()
+      {
         if(!resumeVideo) {
             Uri uri = Uri.parse("http://rmcdn.2mdn.net/MotifFiles/html/1248596/android_1330378998288.mp4");
 
@@ -106,13 +97,11 @@ public void playContentVideo()
                     new AdaptiveTrackSelection.Factory(bandwidthMeter);
             TrackSelector trackSelector =
                     new DefaultTrackSelector(videoTrackSelectionFactory);
-
             player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
             simpleExoPlayerView.setPlayer(player);
             DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(), Util.getUserAgent(this, "sample"));
             MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(uri);
             player.prepare(videoSource);
-
             player.setPlayWhenReady(true);
             Timer timer=new Timer();
 
@@ -127,10 +116,9 @@ public void playContentVideo()
                         public void run() {
 
                             if(vmaxAdView.getAdState()== VmaxAdView.AdState.STATE_AD_READY) {
-                                player.setPlayWhenReady(false);
+                                 player.setPlayWhenReady(false);
                                  simpleExoPlayerView.setVisibility(View.INVISIBLE);
-
-                                showInstream(vmaxAdView);
+                                 showInstream(vmaxAdView);
                             }
                         }
                     });
@@ -144,9 +132,7 @@ public void playContentVideo()
         {
             simpleExoPlayerView.setVisibility(View.VISIBLE);
             player.setPlayWhenReady(true);
-
         }
-
     }
 
 
@@ -154,11 +140,8 @@ public void playContentVideo()
     {
         if (vmaxAdView1.getAdState() == VmaxAdView.AdState.STATE_AD_READY)
         {
-
             vmaxAdView1.setVideoPlayerDetails(adContainer);
             vmaxAdView1.showAd();
-
-
         }
     }
 
